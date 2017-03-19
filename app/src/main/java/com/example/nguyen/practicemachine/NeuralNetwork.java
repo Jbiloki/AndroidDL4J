@@ -34,14 +34,13 @@ public class NeuralNetwork extends AsyncTask<Integer,Integer,Integer> {
         //Create our neural network layers and node in/out
         DenseLayer inputLayer = new DenseLayer.Builder()
                 .nIn(2)
-                .nOut(3)
+                .nOut(2)
                 .name("Input")
                 .build();
         DenseLayer hiddenLayer = new DenseLayer.Builder()
-                .nIn(3)
+                .nIn(2)
                 .nOut(2)
                 .name("Hidden")
-                .activation(Activation.SIGMOID)
                 .build();
 
         OutputLayer outputLayer = new OutputLayer.Builder()
@@ -53,8 +52,8 @@ public class NeuralNetwork extends AsyncTask<Integer,Integer,Integer> {
 
         //Set our iterations of configuration as well as learning rate
         NeuralNetConfiguration.Builder nncBuilder = new NeuralNetConfiguration.Builder();
-        nncBuilder.iterations(2000);
-        nncBuilder.learningRate(0.3);
+        nncBuilder.iterations(60000);
+        nncBuilder.learningRate(0.1);
 
         //Set each layer to a number in a list
         NeuralNetConfiguration.ListBuilder listBuilder = nncBuilder.list();
@@ -69,7 +68,7 @@ public class NeuralNetwork extends AsyncTask<Integer,Integer,Integer> {
         MultiLayerNetwork myNetwork = new MultiLayerNetwork(listBuilder.build());
         myNetwork.init();
 
-        final int NUM_SAMPLES = 4;
+        final int NUM_SAMPLES = 20;
 
 
         INDArray trainingInputs = Nd4j.zeros(NUM_SAMPLES, inputLayer.getNIn());
